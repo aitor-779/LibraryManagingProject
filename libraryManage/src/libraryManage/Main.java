@@ -34,6 +34,7 @@ public class Main {
 				LocalDate registrationDate= LocalDate.now();
 				LocalDate sanctionEndDate= null;
 				//las expresiones regulares, ponerlas aqui, en vez de en el constructor(creo)
+				
 				System.out.println("Dime tu nombre");
 				name=keyboard.nextLine();
 				System.out.println("Dime tu email");
