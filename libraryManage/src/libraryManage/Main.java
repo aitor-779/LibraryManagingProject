@@ -28,8 +28,7 @@ public class Main {
 			}
 			switch(option) {
 			case 1:
-				String name, email;
-				int memberNumber;
+				String name, email,memberNumber;
 				boolean sanctioned=false;
 				LocalDate registrationDate= LocalDate.now();
 				LocalDate sanctionEndDate= null;
@@ -42,22 +41,22 @@ public class Main {
 
 				break;
 			case 2:
-				System.out.println("hola");
+				System.out.println("hola2");
 				break;
 			case 3:
-				System.out.println("hola");
+				System.out.println("hola3");
 				break;
 			case 4:
-				System.out.println("hola");
+				System.out.println("hola4");
 				break;
 			case 5:
-				System.out.println("hola");
+				System.out.println("hola5");
 				break;
 			case 6:
-				System.out.println("hola");
+				System.out.println("hola6");
 				break;
 			case 7:
-				System.out.println("hola");
+				System.out.println("hola7");
 				break;
 			case 8:
 				break;

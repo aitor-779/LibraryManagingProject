@@ -15,7 +15,7 @@ public class Loan {
 		this.bookTitle=bookTitle;
 		this.user=user;
 		this.loanDate=loanDate;
-		//dueDate=
+		dueDate=loanDate.plusDays(14);
 		actualReturnDate=null;
 	}
 	
@@ -25,9 +25,21 @@ public class Loan {
 	
 	public int calculateDelayDays(LocalDate loanDate, LocalDate actualReturnDate) {
 		int delayDays;
-		if (actualReturnDate.getYear()==loanDate.getYear()) {
-			delayDays=actualReturnDate.getDayOfYear()-loanDate.getDayOfYear();
+		LocalDate today=LocalDate.now();
+		if (actualReturnDate==null) {
+			if(today.getYear()>loanDate.getYear()) {
+				delayDays=today.getDayOfYear()+365-loanDate.getDayOfYear();
+			}else {
+				delayDays=today.getDayOfYear()-loanDate.getDayOfYear();
+			}
 		}else {
+			if (actualReturnDate.getYear()>loanDate.getYear()) {
+				delayDays=actualReturnDate.getDayOfYear()+365-loanDate.getDayOfYear();
+			}else {
+				delayDays=actualReturnDate.getDayOfYear()-loanDate.getDayOfYear();
+			}
+		}
+		if (delayDays<0) {
 			delayDays=0;
 		}
 		return delayDays;
@@ -35,11 +47,21 @@ public class Loan {
 	
 	public boolean isOverdue(LocalDate dueDate) {
 		LocalDate today=LocalDate.now();
-		if(today>dueDate) {
-			
+		if(today.getYear()<dueDate.getYear()) {
+			return true;
+		}else if(today.getMonthValue()<dueDate.getMonthValue()) {
+			return true;
+		}else if(today.getDayOfYear()<dueDate.getDayOfYear()) {
+			return true;
+		}else {
+			return false;
 		}
-		return false;
-		
+	}
+
+	@Override
+	public String toString() {
+		return "Loan [bookCode=" + bookCode + ", bookTitle=" + bookTitle + ", user=" + user + ", loanDate=" + loanDate
+				+ ", dueDate=" + dueDate + ", actualReturnDate=" + actualReturnDate + "]";
 	}
 
 	public String getBookCode() {

@@ -5,12 +5,12 @@ import java.time.LocalDate;
 public class User {
 	private String name;
 	private String email;
-	private int membernumber;
+	private String membernumber;
 	private LocalDate registrationDate;
 	private boolean sanctioned;
 	private LocalDate sanctionEndDate;
 	
-	public User(String name, String email, int membernumber, LocalDate registrationDate, boolean sanctioned, LocalDate sanctionEndDate) {
+	public User(String name, String email, String membernumber, LocalDate registrationDate, boolean sanctioned, LocalDate sanctionEndDate) {
 		this.name=name;
 		this.email=email;
 		this.membernumber=membernumber;
@@ -55,11 +55,11 @@ public class User {
 		this.email = email;
 	}
 
-	public int getMembernumber() {
+	public String getMembernumber() {
 		return membernumber;
 	}
 
-	public void setMembernumber(int membernumber) {
+	public void setMembernumber(String membernumber) {
 		this.membernumber = membernumber;
 	}
 
