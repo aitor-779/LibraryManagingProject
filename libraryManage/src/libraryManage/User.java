@@ -25,6 +25,9 @@ public class User {
 		return sanctioned;
 		
 	}
+	public void liftSanction() {
+		sanctioned=false;
+	}
 	
 	@Override
 	public String toString() {
