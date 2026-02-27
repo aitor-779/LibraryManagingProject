@@ -21,6 +21,7 @@ public class Loan {
 	
 	public void registerReturn(LocalDate actualReturnDate) {
 		this.actualReturnDate=actualReturnDate;
+		//aun tengo que acabar este
 	}
 	
 	public int calculateDelayDays(LocalDate loanDate, LocalDate actualReturnDate) {
