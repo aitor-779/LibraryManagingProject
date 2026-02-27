@@ -1,5 +1,6 @@
 package libraryManage;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -8,6 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Scanner keyboard = new Scanner(System.in);
+		ArrayList<User> users = new ArrayList<User>();
+		ArrayList<Loan> loans = new ArrayList<Loan>();
+
 		int option=0;
 		
 		while(option!=8) {
@@ -28,16 +32,7 @@ public class Main {
 			}
 			switch(option) {
 			case 1:
-				String name, email,memberNumber;
-				boolean sanctioned=false;
-				LocalDate registrationDate= LocalDate.now();
-				LocalDate sanctionEndDate= null;
-				//las expresiones regulares, ponerlas aqui, en vez de en el constructor(creo)
-				
-				System.out.println("Dime tu nombre");
-				name=keyboard.nextLine();
-				System.out.println("Dime tu email");
-				email=keyboard.nextLine();
+				addUser();
 
 				break;
 			case 2:
