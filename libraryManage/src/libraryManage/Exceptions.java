@@ -24,7 +24,7 @@ class RepeatedUserException extends Exception{
 class InvalidLoanException extends Exception{
 	public InvalidLoanException(String message) {
 		super(message);
-	}
+	}	
 }
 class BookNotAvailableException extends Exception{
 	public BookNotAvailableException(String message) {

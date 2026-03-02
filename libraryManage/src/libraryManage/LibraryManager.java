@@ -11,7 +11,7 @@ public class LibraryManager {
 	private int LoanCount;
 	
 	
-	public static void addUser() {
+	public void addUser() {
 		Scanner keyboard = new Scanner(System.in);
 		String name, email,memberNumber;
 		boolean sanctioned=false;
