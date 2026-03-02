@@ -19,9 +19,21 @@ public class Loan {
        setActualReturnDate(null);
     }
     
-    public void registerReturn(LocalDate actualReturnDate) {
-       this.actualReturnDate=actualReturnDate;
-       //aun tengo que acabar este
+    public void registerReturn() throws InvalidLoanException {
+    	LocalDate now=LocalDate.now();
+    	if (loanDate==null) {
+    		throw new InvalidLoanException("Theres an error with the Loan Date");
+    	}else {
+    		if(loanDate.getYear()<now.getYear()) {
+    			if (loanDate.getDayOfYear()<now.getDayOfYear()) {
+                	setActualReturnDate(LocalDate.now());
+    			}else {
+            		throw new InvalidLoanException("The return date is invalid");
+    			}
+        	}else {
+        		throw new InvalidLoanException("The return date is invalid");
+        	}
+    	}
     }
     
     public int calculateDelayDays(LocalDate loanDate, LocalDate actualReturnDate) {

@@ -11,25 +11,39 @@ public class LibraryManager {
 	private int LoanCount;
 	
 	
-	public void addUser() {
+	public void addUser() throws InvalidUserException {
 		Scanner keyboard = new Scanner(System.in);
 		String name, email,memberNumber;
-		boolean sanctioned=false;
 		LocalDate registrationDate= LocalDate.now();
-		LocalDate sanctionEndDate= null;
-		//las expresiones regulares, ponerlas aqui, en vez de en el constructor(creo)
-
-		User newUser= new User(name,email,memberNumber,registrationDate,sanctioned,sanctionEndDate);
+		int number=0;
+		
+		System.out.println("Name of the user");
+		name=keyboard.nextLine();
+		System.out.println("Email of the user");
+		email=keyboard.nextLine();
+		memberNumber=String.format("SOC%05d", number);
+		
+		
+		User newUser= new User(name,email,memberNumber,registrationDate);
 		users.add(newUser);
+		number++;
 	}
 	
 	public void addLoan() {
 		Scanner keyboard = new Scanner(System.in);
-		String bookCode,bookTitle,user;
+		String bookCode,bookTitle;
 		LocalDate loanDate=LocalDate.now();
+		int number=0;
+		
+		System.out.println("Name of the book");
+		bookTitle=keyboard.nextLine();
+		bookCode=String.format("SOC%05d", number);
+
+		User user=
 		
 		Loan newLoan= new Loan(bookCode,bookTitle,user,loanDate);
 		loans.add(newLoan);
+		number++;
 	}
 	
 	public boolean returnBook() {

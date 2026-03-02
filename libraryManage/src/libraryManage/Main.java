@@ -12,6 +12,8 @@ public class Main {
 
 
 		int option=0;
+
+		
 		
 		while(option!=8) {
 			System.out.println("Give me the option you want");
@@ -31,7 +33,7 @@ public class Main {
 			}
 			switch(option) {
 			case 1:
-				addUser();
+				//addUser();
 
 				break;
 			case 2:
