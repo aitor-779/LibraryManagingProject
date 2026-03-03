@@ -43,10 +43,10 @@ public class Main {
 				break;
 			case 4:
 				User user = LibraryManager.findUser();
-				if(user!=null) {
-					System.out.println(user.toString());	
+				if (user.isSanctioned()==true) {
+					System.out.println("User sanctioned");
 				}else {
-					System.err.println("User Not Found");
+					System.out.println("User not sanctioned");
 				}
 				break;
 			case 5:
@@ -62,7 +62,7 @@ public class Main {
 				}
 				break;
 			case 7:
-				System.out.println("hola7");
+				LibraryManager.liftSanctions();
 				break;
 			case 8:
 				break;

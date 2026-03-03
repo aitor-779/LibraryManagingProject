@@ -37,7 +37,7 @@ public class LibraryManager {
 		
 		System.out.println("Name of the book");
 		bookTitle=keyboard.nextLine();
-		bookCode=String.format("SOC%05d", number);
+		bookCode=String.format("LIB%04d", number);
 		User user = findUser();
 		if (user.isSanctioned()) {
 			throw new SanctionedUserException("The user is sanctioned");
@@ -47,10 +47,35 @@ public class LibraryManager {
 		}
 	}
 	
-	public boolean returnBook() {
+	public boolean returnBook() throws InvalidLoanException{
+		ArrayList books = new ArrayList();
+		int count=0;
 		Scanner keyboard = new Scanner(System.in);
 		String bookCode;
 		LocalDate returnDate;
+		for(int i=0; i<loans.size();i++) {
+			Loan loan = loans.get(i);
+			if (loan.getActualReturnDate()==null) {
+				System.out.println("Book "+i+": "+loan.getBookCode()+" Name: "+loan.getBookTitle());
+				count++;
+			}
+		}
+		System.out.println("Give me the index number of the book that is returning");
+		int numBook=keyboard.nextInt();
+		while (numBook<0||numBook>count) {
+			System.err.println("Wrong index number, give me a valid one");
+			for(int i=0; i<loans.size();i++) {
+				Loan loan = loans.get(i);
+				if (loan.getActualReturnDate()==null) {
+					System.out.println("Book "+i+": "+loan.getBookCode()+" Name: "+loan.getBookTitle());
+					count++;
+				}
+			}	
+			numBook=keyboard.nextInt();
+		}
+		for(int i=0;i<loans.size();i++) {
+			
+		}
 		return false;
 		
 	}
@@ -106,7 +131,18 @@ public class LibraryManager {
 	
 	public static void liftSanctions() {
 		for(int i=0; i<users.size();i++) {
-		
+			User user= users.get(i);
+			LocalDate today=LocalDate.now();
+			if (user.isSanctioned()==true) {
+				LocalDate sancEndDate = user.getSanctionEndDate();
+				if (today.getYear()>sancEndDate.getYear()) {
+					user.setSanctioned(false);
+				}else if (today.getYear()==sancEndDate.getYear()) {
+					if (today.getDayOfYear()>sancEndDate.getDayOfYear()) {
+						user.setSanctioned(false);
+					}
+				}
+			}
 		}
 	}
 	
