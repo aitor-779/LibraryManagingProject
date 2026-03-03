@@ -16,6 +16,7 @@ class SanctionedUserException extends Exception{
 		super(message);
 	}
 }
+//si debo usar RepeatedUserException si se repite el numero de usuario, no lo he usado porque tengo una variable que auto incrementa el numero de usuario
 class RepeatedUserException extends Exception{
 	public RepeatedUserException(String message) {
 		super(message);

@@ -5,17 +5,18 @@ import java.util.Scanner;
 import java.time.LocalDate;
 
 public class LibraryManager {
-	ArrayList<User> users = new ArrayList<User>();
-	ArrayList<Loan> loans = new ArrayList<Loan>();
+	static ArrayList<User> users = new ArrayList<User>();
+	static ArrayList<Loan> loans = new ArrayList<Loan>();
+
 	private int userCount;
 	private int LoanCount;
 	
 	
-	public void addUser() throws InvalidUserException {
+	public static void addUser() throws InvalidUserException {
 		Scanner keyboard = new Scanner(System.in);
 		String name, email,memberNumber;
 		LocalDate registrationDate= LocalDate.now();
-		int number=0;
+		int number=users.size();
 		
 		System.out.println("Name of the user");
 		name=keyboard.nextLine();
@@ -26,38 +27,87 @@ public class LibraryManager {
 		
 		User newUser= new User(name,email,memberNumber,registrationDate);
 		users.add(newUser);
-		number++;
 	}
 	
-	public void addLoan() {
+	public static void addLoan() throws SanctionedUserException, InvalidLoanException, BookNotAvailableException{
 		Scanner keyboard = new Scanner(System.in);
 		String bookCode,bookTitle;
 		LocalDate loanDate=LocalDate.now();
-		int number=0;
+		int number=loans.size();
 		
 		System.out.println("Name of the book");
 		bookTitle=keyboard.nextLine();
 		bookCode=String.format("SOC%05d", number);
-
-		User user=
-		
-		Loan newLoan= new Loan(bookCode,bookTitle,user,loanDate);
-		loans.add(newLoan);
-		number++;
+		User user = findUser();
+		if (user.isSanctioned()) {
+			throw new SanctionedUserException("The user is sanctioned");
+		}else{
+			Loan newLoan= new Loan(bookCode,bookTitle,user,loanDate);
+			loans.add(newLoan);
+		}
 	}
 	
 	public boolean returnBook() {
 		Scanner keyboard = new Scanner(System.in);
 		String bookCode;
 		LocalDate returnDate;
+		return false;
+		
+	}
+	
+	public static User findUser() {
+		Scanner keyboard = new Scanner(System.in);
+		String memberNumber;
+		System.out.println("User list:");
+		for(int i=0; i<users.size();i++) {
+			User user = users.get(i);
+			System.out.println("User "+i+": "+user.getName()+" User number: "+user.getMemberNumber());
+		}
+		System.out.println("Give me the index number of the user that you want");
+		int numUser=keyboard.nextInt();
+		while (numUser<0||numUser>users.size()) {
+			System.err.println("Wrong index number, give me a valid one");
+			for(int i=0; i<users.size();i++) {
+				User user = users.get(i);
+				System.out.println("User "+i+": "+user.getName()+" User number: "+user.getMemberNumber());
+			}
+			numUser=keyboard.nextInt();
+		}
+		if(users.get(numUser)!=null) {
+			return users.get(numUser);
+		}else {
+			return null;
+		}
 		
 		
 	}
 	
-	public User findUser() {
-		Scanner keyboard = new Scanner(System.in);
-		String memberNumber;
+	public static ArrayList activeLoans() {
+		ArrayList<Loan> activeLoans = new ArrayList<Loan>();
+		for(int i=0; i<loans.size();i++) {
+			Loan loan = loans.get(i);
+			if (loan.getActualReturnDate()==null) {
+				activeLoans.add(loan);
+			}
+		}
+		return activeLoans;
+	}
+	
+	public static ArrayList checkSanctions() {
+		ArrayList<User> sanctionedUsers = new ArrayList<User>();
+		for(int i=0; i<users.size();i++) {
+			User user = users.get(i);
+			if (user.isSanctioned()==true) {
+				sanctionedUsers.add(user);
+			}
+		}
+		return sanctionedUsers;
+	}
+	
+	public static void liftSanctions() {
+		for(int i=0; i<users.size();i++) {
 		
+		}
 	}
 	
 	

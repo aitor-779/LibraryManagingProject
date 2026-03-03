@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidUserException, InvalidLoanException, SanctionedUserException, BookNotAvailableException {
 		
 		Scanner keyboard = new Scanner(System.in);
 
@@ -33,23 +33,33 @@ public class Main {
 			}
 			switch(option) {
 			case 1:
-				//addUser();
-
+				LibraryManager.addUser();
 				break;
 			case 2:
-				System.out.println("hola2");
+				LibraryManager.addLoan();
 				break;
 			case 3:
 				System.out.println("hola3");
 				break;
 			case 4:
-				System.out.println("hola4");
+				User user = LibraryManager.findUser();
+				if(user!=null) {
+					System.out.println(user.toString());	
+				}else {
+					System.err.println("User Not Found");
+				}
 				break;
 			case 5:
-				System.out.println("hola5");
+				ArrayList activeLoans=LibraryManager.activeLoans();
+				for(int pos=0;pos<activeLoans.size(); pos++) {
+					System.out.println(activeLoans.get(pos));
+				}
 				break;
 			case 6:
-				System.out.println("hola6");
+				ArrayList sanctionedUsers=LibraryManager.checkSanctions();
+				for(int pos=0;pos<sanctionedUsers.size(); pos++) {
+					System.out.println(sanctionedUsers.get(pos));
+				}
 				break;
 			case 7:
 				System.out.println("hola7");
