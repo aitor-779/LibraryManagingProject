@@ -49,6 +49,7 @@ public class LibraryManager {
 	
 	public boolean returnBook() throws InvalidLoanException{
 		ArrayList books = new ArrayList();
+		String loanCode;
 		int count=0;
 		Scanner keyboard = new Scanner(System.in);
 		String bookCode;
@@ -62,6 +63,7 @@ public class LibraryManager {
 		}
 		System.out.println("Give me the index number of the book that is returning");
 		int numBook=keyboard.nextInt();
+		
 		while (numBook<0||numBook>count) {
 			System.err.println("Wrong index number, give me a valid one");
 			for(int i=0; i<loans.size();i++) {
@@ -73,8 +75,11 @@ public class LibraryManager {
 			}	
 			numBook=keyboard.nextInt();
 		}
+		loanCode=loans.get(numBook);
 		for(int i=0;i<loans.size();i++) {
-			
+			if (loanCode.equals(loans.getBookCode()){
+				
+			}	
 		}
 		return false;
 		
@@ -169,3 +174,4 @@ public class LibraryManager {
 	
 	
 }
+
