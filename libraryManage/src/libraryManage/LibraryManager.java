@@ -47,7 +47,7 @@ public class LibraryManager {
 		}
 	}
 	
-	public boolean returnBook() throws InvalidLoanException{
+	public static boolean returnBook() throws InvalidLoanException{
 		ArrayList books = new ArrayList();
 		String loanCode;
 		int count=0;
@@ -64,7 +64,7 @@ public class LibraryManager {
 		System.out.println("Give me the index number of the book that is returning");
 		int numBook=keyboard.nextInt();
 		
-		while (numBook<0||numBook>count) {
+		while (numBook<0||numBook>count-1) {
 			System.err.println("Wrong index number, give me a valid one");
 			for(int i=0; i<loans.size();i++) {
 				Loan loan = loans.get(i);
@@ -75,14 +75,22 @@ public class LibraryManager {
 			}	
 			numBook=keyboard.nextInt();
 		}
-		loanCode=loans.get(numBook);
-		for(int i=0;i<loans.size();i++) {
-			if (loanCode.equals(loans.getBookCode()){
-				
-			}	
-		}
-		return false;
-		
+		Loan theLoan=loans.get(numBook);
+		theLoan.setActualReturnDate(LocalDate.now());
+		if(theLoan.getActualReturnDate().getYear()>theLoan.getDueDate().getYear()){
+					
+					User user= theLoan.getUser();
+					user.setSanctioned(true);
+					user.sanction(LocalDate.now().getDayOfYear()+365-theLoan.getDueDate().getDayOfYear());
+					return true;
+				}else if (theLoan.getActualReturnDate().getDayOfYear()>theLoan.getDueDate().getDayOfYear()){
+					User user=theLoan.getUser();
+					user.setSanctioned(true);
+					user.sanction(LocalDate.now().getDayOfYear()-theLoan.getDueDate().getDayOfYear());
+					return true;
+				}else{
+					return false;
+				}		
 	}
 	
 	public static User findUser() {
@@ -95,7 +103,7 @@ public class LibraryManager {
 		}
 		System.out.println("Give me the index number of the user that you want");
 		int numUser=keyboard.nextInt();
-		while (numUser<0||numUser>users.size()) {
+		while (numUser<0||numUser>users.size()-1) {
 			System.err.println("Wrong index number, give me a valid one");
 			for(int i=0; i<users.size();i++) {
 				User user = users.get(i);

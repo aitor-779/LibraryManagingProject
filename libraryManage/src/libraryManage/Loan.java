@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Loan {
     private String bookCode;
     private String bookTitle;
-    private Object user;
+    private User user;
     private LocalDate loanDate;
     private LocalDate dueDate;
     private LocalDate actualReturnDate;
@@ -98,7 +98,7 @@ public class Loan {
        this.bookTitle = bookTitle;
     }
 
-    public Object getUser() {
+    public User getUser() {
        return user;
     }
 

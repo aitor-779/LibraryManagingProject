@@ -16,6 +16,7 @@ public class Main {
 		
 		
 		while(option!=8) {
+			try {
 			System.out.println("Give me the option you want");
 			System.out.println("1: Register New User");
 			System.out.println("2: Issue Book Loan");
@@ -34,12 +35,15 @@ public class Main {
 			switch(option) {
 			case 1:
 				LibraryManager.addUser();
+				System.out.println("Operation completed");
 				break;
 			case 2:
 				LibraryManager.addLoan();
+				System.out.println("Operation completed");
 				break;
 			case 3:
-				System.out.println("hola3");
+				LibraryManager.returnBook();
+				System.out.println("Operation completed");
 				break;
 			case 4:
 				User user = LibraryManager.findUser();
@@ -51,18 +55,28 @@ public class Main {
 				break;
 			case 5:
 				ArrayList activeLoans=LibraryManager.activeLoans();
-				for(int pos=0;pos<activeLoans.size(); pos++) {
-					System.out.println(activeLoans.get(pos));
+				if(activeLoans.size()==0) {
+					System.out.println("There´s no loans active");
+				}else {
+					for(int pos=0;pos<activeLoans.size(); pos++) {
+						System.out.println(activeLoans.get(pos));
+					}
 				}
+				
 				break;
 			case 6:
 				ArrayList sanctionedUsers=LibraryManager.checkSanctions();
-				for(int pos=0;pos<sanctionedUsers.size(); pos++) {
-					System.out.println(sanctionedUsers.get(pos));
+				if(sanctionedUsers.size()==0) {
+					System.out.println("There´s no users sanctioned");
+				}else {
+					for(int pos=0;pos<sanctionedUsers.size(); pos++) {
+						System.out.println(sanctionedUsers.get(pos));
+					}
 				}
 				break;
 			case 7:
 				LibraryManager.liftSanctions();
+				System.out.println("Operation completed");
 				break;
 			case 8:
 				break;
@@ -71,9 +85,11 @@ public class Main {
 
 			}
 				
-			
+		}catch(InvalidUserException | InvalidLoanException | SanctionedUserException | BookNotAvailableException e) {
+		System.err.println("Bad value: "+e.getMessage());
+		}	
 			
 		}
-		
+	
 	}
 }
